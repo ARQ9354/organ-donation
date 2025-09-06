@@ -1,0 +1,378 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donor Registration - We Donate</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem 0;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('{% static "images/donor_background.jpg" %}') center/cover;
+            opacity: 0.1;
+            z-index: 1;
+        }
+        
+        .registration-container {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .registration-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            padding: 3rem;
+            border: none;
+            animation: slideUp 0.6s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .registration-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .registration-icon {
+            font-size: 4rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+        
+        .registration-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .registration-subtitle {
+            color: #666;
+            font-size: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .form-control, .form-control:focus {
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            padding: 15px 20px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+        
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            background: white;
+        }
+        
+        .btn-register {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            width: 100%;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+        
+        .home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 50px;
+            color: #667eea;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .home-btn:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        
+        .login-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .login-link a:hover {
+            color: #764ba2;
+            text-decoration: none;
+        }
+        
+        .password-strength {
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+        
+        .strength-weak { color: #dc3545; }
+        .strength-medium { color: #ffc107; }
+        .strength-strong { color: #28a745; }
+        
+        @media (max-width: 768px) {
+            .registration-card {
+                margin: 1rem;
+                padding: 2rem;
+            }
+            
+            .registration-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Home Button -->
+    <a href="{% url 'wedonate' %}" class="home-btn">
+        <i class="fas fa-home"></i> Home
+    </a>
+    
+    <!-- Registration Container -->
+    <div class="registration-container">
+        <div class="registration-card">
+            <div class="registration-header">
+                <div class="registration-icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <h1 class="registration-title">Join as a Donor</h1>
+                <p class="registration-subtitle">Create your account and start saving lives</p>
+            </div>
+            
+            <form method="POST" action="{% url 'donor-register' %}">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="donor_name" class="form-label">
+                        <i class="fas fa-user"></i> Full Name
+                    </label>
+                    <input type="text" name="donor_name" class="form-control" id="donor_name" placeholder="Enter your full name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="form-label">
+                        <i class="fas fa-envelope"></i> Email Address
+                    </label>
+                    <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="username" class="form-label">
+                        <i class="fas fa-at"></i> Username
+                    </label>
+                    <input type="text" name="username" class="form-control" id="username" placeholder="Choose a username" required>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="city" class="form-label">
+                                <i class="fas fa-city"></i> City
+                            </label>
+                            <input type="text" name="city" class="form-control" id="city" placeholder="Your city">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="province" class="form-label">
+                                <i class="fas fa-map-marker-alt"></i> Province
+                            </label>
+                            <select name="province" class="form-control" id="province">
+                                <option value="Nova Scotia">Nova Scotia</option>
+                                <option value="British Columbia">British Columbia</option>
+                                <option value="Ontario">Ontario</option>
+                                <option value="Quebec">Quebec</option>
+                                <option value="Alberta">Alberta</option>
+                                <option value="New Brunswick">New Brunswick</option>
+                                <option value="Manitoba">Manitoba</option>
+                                <option value="Saskatchewan">Saskatchewan</option>
+                                <option value="Newfoundland and Labrador">Newfoundland and Labrador</option>
+                                <option value="Prince Edward Island">Prince Edward Island</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="contact_number" class="form-label">
+                                <i class="fas fa-phone"></i> Phone (+1)
+                            </label>
+                            <input type="tel" name="contact_number" class="form-control" id="contact_number" placeholder="1234567890" maxlength="10" minlength="10">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="country" class="form-label">
+                                <i class="fas fa-flag"></i> Country
+                            </label>
+                            <select name="country" class="form-control" id="country">
+                                <option value="Canada" selected>Canada</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="form-label">
+                        <i class="fas fa-lock"></i> Password
+                    </label>
+                    <input type="password" name="password" class="form-control" id="password" placeholder="Create a strong password" minlength="6" pattern="(?=.*[a-z])(?=.*\d).{6,}" title="Password must contain at least 1 lowercase letter and 1 digit" required>
+                    <div id="password-strength" class="password-strength"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirm_password" class="form-label">
+                        <i class="fas fa-lock"></i> Confirm Password
+                    </label>
+                    <input type="password" class="form-control" id="confirm_password" placeholder="Confirm your password" required>
+                    <div id="password-match" class="password-strength"></div>
+                </div>
+                
+                <button type="submit" id="submit-btn" class="btn btn-register" disabled>
+                    <i class="fas fa-user-plus"></i> Create Account
+                </button>
+            </form>
+            
+            <div class="login-link">
+                Already have an account? <a href="{% url 'donor-login' %}">Sign in here</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function checkPassword() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+            const strengthDiv = document.getElementById('password-strength');
+            const matchDiv = document.getElementById('password-match');
+            const submitBtn = document.getElementById('submit-btn');
+            
+            // Password strength check
+            let strength = 0;
+            if (password.length >= 6) strength++;
+            if (password.match(/[a-z]/)) strength++;
+            if (password.match(/[A-Z]/)) strength++;
+            if (password.match(/[0-9]/)) strength++;
+            if (password.match(/[^a-zA-Z0-9]/)) strength++;
+            
+            if (password.length > 0) {
+                if (strength < 3) {
+                    strengthDiv.innerHTML = '<i class="fas fa-times"></i> Weak password';
+                    strengthDiv.className = 'password-strength strength-weak';
+                } else if (strength < 4) {
+                    strengthDiv.innerHTML = '<i class="fas fa-check"></i> Medium strength';
+                    strengthDiv.className = 'password-strength strength-medium';
+                } else {
+                    strengthDiv.innerHTML = '<i class="fas fa-check-double"></i> Strong password';
+                    strengthDiv.className = 'password-strength strength-strong';
+                }
+            } else {
+                strengthDiv.innerHTML = '';
+            }
+            
+            // Password match check
+            if (confirmPassword.length > 0) {
+                if (password === confirmPassword) {
+                    matchDiv.innerHTML = '<i class="fas fa-check"></i> Passwords match';
+                    matchDiv.className = 'password-strength strength-strong';
+                    submitBtn.disabled = false;
+                } else {
+                    matchDiv.innerHTML = '<i class="fas fa-times"></i> Passwords do not match';
+                    matchDiv.className = 'password-strength strength-weak';
+                    submitBtn.disabled = true;
+                }
+            } else {
+                matchDiv.innerHTML = '';
+                submitBtn.disabled = true;
+            }
+        }
+        
+        document.getElementById('password').addEventListener('input', checkPassword);
+        document.getElementById('confirm_password').addEventListener('input', checkPassword);
+        
+        // Form submission
+        document.querySelector('form').addEventListener('submit', function() {
+            document.getElementById('submit-btn').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+        });
+    </script>
+</body>
+</html>

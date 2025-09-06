@@ -1,0 +1,342 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donor Login - We Donate</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('{% static "images/donor_background.jpg" %}') center/cover;
+            opacity: 0.1;
+            z-index: 1;
+        }
+        
+        .navbar {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: #667eea !important;
+        }
+        
+        .login-container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+        
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            padding: 3rem;
+            border: none;
+            animation: slideUp 0.6s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .login-icon {
+            font-size: 4rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+        
+        .login-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .login-subtitle {
+            color: #666;
+            font-size: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .form-control {
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            padding: 15px 20px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+        
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            background: white;
+        }
+        
+        .input-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 1.1rem;
+        }
+        
+        .btn-login {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            width: 100%;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+        
+        .btn-login:active {
+            transform: translateY(0);
+        }
+        
+        .login-links {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        
+        .login-links a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .login-links a:hover {
+            color: #764ba2;
+            text-decoration: none;
+        }
+        
+        .divider {
+            margin: 0 0.5rem;
+            color: #999;
+        }
+        
+        .alert-custom {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+        
+        .home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 50px;
+            color: #667eea;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .home-btn:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        @media (max-width: 768px) {
+            .login-card {
+                margin: 1rem;
+                padding: 2rem;
+            }
+            
+            .login-title {
+                font-size: 1.5rem;
+            }
+            
+            .home-btn {
+                position: static;
+                margin-bottom: 1rem;
+                display: inline-block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Home Button -->
+    <a href="{% url 'wedonate' %}" class="home-btn">
+        <i class="fas fa-home"></i> Home
+    </a>
+    
+    <!-- Login Container -->
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="login-icon">
+                    <i class="fas fa-hand-holding-heart"></i>
+                </div>
+                <h1 class="login-title">Donor Login</h1>
+                <p class="login-subtitle">Welcome back! Sign in to continue your donation journey</p>
+            </div>
+            
+            <form method="POST" action="{% url 'donor-login' %}">
+                {% csrf_token %}
+                
+                {% if fail %}
+                <div class="alert alert-custom" role="alert">
+                    <i class="fas fa-exclamation-triangle"></i> {{ msg }}
+                </div>
+                {% endif %}
+                
+                <div class="form-group">
+                    <label for="username" class="form-label">
+                        <i class="fas fa-user"></i> Username
+                    </label>
+                    <input type="text" 
+                           name="username" 
+                           class="form-control" 
+                           id="username" 
+                           placeholder="Enter your username"
+                           required 
+                           autofocus>
+                    <div class="input-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="form-label">
+                        <i class="fas fa-lock"></i> Password
+                    </label>
+                    <input type="password" 
+                           name="password" 
+                           class="form-control" 
+                           id="password" 
+                           placeholder="Enter your password"
+                           required>
+                    <div class="input-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                </div>
+                
+                {% if request.GET.next %}
+                <input type="hidden" name="next" value="{{ request.GET.next }}">
+                {% endif %}
+                
+                <button type="submit" class="btn btn-login">
+                    <i class="fas fa-sign-in-alt"></i> Sign In
+                </button>
+            </form>
+            
+            <div class="login-links">
+                <a href="{% url 'donor-forgot-password' %}">
+                    <i class="fas fa-key"></i> Forgot Password?
+                </a>
+                <span class="divider">|</span>
+                <a href="{% url 'donor-register' %}">
+                    <i class="fas fa-user-plus"></i> New User?
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Add some interactive effects
+        $(document).ready(function() {
+            // Focus effects
+            $('.form-control').on('focus', function() {
+                $(this).parent().find('.input-icon').css('color', '#667eea');
+            });
+            
+            $('.form-control').on('blur', function() {
+                $(this).parent().find('.input-icon').css('color', '#999');
+            });
+            
+            // Form validation feedback
+            $('form').on('submit', function() {
+                $('.btn-login').html('<i class="fas fa-spinner fa-spin"></i> Signing In...');
+            });
+        });
+    </script>
+</body>
+</html>

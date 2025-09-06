@@ -1,0 +1,520 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment - We Donate</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+        }
+        
+        .navbar-custom {
+            background: linear-gradient(135deg, #667eea, #764ba2) !important;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: white !important;
+        }
+        
+        .navbar-nav .nav-link {
+            color: rgba(255,255,255,0.9) !important;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-nav .nav-link:hover {
+            color: white !important;
+            transform: translateY(-1px);
+        }
+        
+        .appointment-container {
+            margin-top: 120px;
+            margin-bottom: 50px;
+        }
+        
+        .appointment-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            padding: 3rem;
+            border: none;
+            animation: slideUp 0.6s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .appointment-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .appointment-icon {
+            font-size: 4rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+        
+        .appointment-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .appointment-subtitle {
+            color: #666;
+            font-size: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .form-control {
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            padding: 15px 20px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+        
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            background: white;
+        }
+        
+        select.form-control {
+            background: white !important;
+            color: #333 !important;
+            -webkit-appearance: menulist !important;
+            -moz-appearance: menulist !important;
+            appearance: menulist !important;
+        }
+        
+        select.form-control option {
+            background: white !important;
+            color: #333 !important;
+            padding: 8px !important;
+        }
+        
+        select.form-control:focus {
+            background: white !important;
+            color: #333 !important;
+        }
+        
+        .btn-book {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            width: 100%;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn-book:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+        
+        .info-card {
+            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid #667eea;
+        }
+        
+        .time-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .time-slot {
+            padding: 10px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+        
+        .time-slot:hover {
+            border-color: #667eea;
+            background: #e3f2fd;
+        }
+        
+        .time-slot.selected {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .footer-custom {
+            background: #2c3e50;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-custom a {
+            color: #ecf0f1;
+            text-decoration: none;
+        }
+        
+        .footer-custom a:hover {
+            color: #667eea;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            color: #ddd;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'donor-landing-page' %}">
+                <i class="fas fa-heart text-danger"></i> We Donate
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'donor-landing-page' %}">
+                            <i class="fas fa-home"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'donor-home' %}">
+                            <i class="fas fa-history"></i> My Donations
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'new-donation-request' %}">
+                            <i class="fas fa-plus-circle"></i> New Request
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'book-appointment' %}">
+                            <i class="fas fa-calendar-plus"></i> Book Appointment
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+                            <i class="fas fa-user-circle"></i> Settings
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{% url 'donor-profile-update' %}">
+                                <i class="fas fa-user-edit"></i> Update Profile
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'donor-logout' %}">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Appointment Container -->
+    <div class="container appointment-container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="appointment-card">
+                    <div class="appointment-header">
+                        <div class="appointment-icon">
+                            <i class="fas fa-calendar-plus"></i>
+                        </div>
+                        <h1 class="appointment-title">Book Appointment</h1>
+                        <p class="appointment-subtitle">Schedule your appointment with a partner hospital</p>
+                    </div>
+                    
+                    {% if donors %}
+                    {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="fas fa-check-circle"></i> <strong>Success!</strong> {{ message }}
+                            <button type="button" class="close" data-dismiss="alert">
+                                <span>&times;</span>
+                            </button>
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    <!-- Test if form was submitted -->
+                    {% if request.method == 'POST' %}
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i> <strong>Form was submitted successfully!</strong> 
+                        Check your dashboard to see if the appointment was created.
+                    </div>
+                    {% endif %}
+                    
+                    <div class="info-card">
+                        <h6><i class="fas fa-info-circle"></i> Appointment Booking</h6>
+                        <p class="mb-0">Select your approved donation request and choose a convenient time slot at your preferred hospital.</p>
+                        <small class="text-muted">Debug: {{ donors|length }} donation requests, {{ users|length }} hospitals available</small>
+                    </div>
+                    
+                    <form method="POST" action="{% url 'book-appointment' %}">
+                        {% csrf_token %}
+                        
+                        <div class="form-group">
+                            <label for="donation_id" class="form-label">
+                                <i class="fas fa-heart"></i> Select Donation Request
+                            </label>
+                            <select name="dreq" class="form-control" id="donation_id" required>
+                                <option value="">Choose your donation request</option>
+                                {% for donor in donors %}
+                                <option value="{{ donor.id }}">
+                                    #DON{{ donor.id }} - {{ donor.organ_type }} ({{ donor.blood_type }})
+                                </option>
+                                {% endfor %}
+                            </select>
+                            <small class="form-text text-muted">Only approved donation requests are available for booking</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="hospital_select" class="form-label">
+                                <i class="fas fa-hospital"></i> Select Hospital
+                            </label>
+                            <select name="hospital-name" class="form-control" id="hospital_select" required>
+                                <option value="">Choose a hospital</option>
+                                {% for user in users %}
+                                <option value="{{ user.hospital_name }}" data-city="{{ user.city }}" data-province="{{ user.province }}">
+                                    {{ user.hospital_name }} - {{ user.city }}, {{ user.province }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                            <small class="form-text text-muted">Select from our network of partner hospitals</small>
+                            <div id="hospital-info" class="mt-2" style="display: none;">
+                                <div class="alert alert-info">
+                                    <i class="fas fa-map-marker-alt"></i> <span id="hospital-details"></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="appointment_date" class="form-label">
+                                        <i class="fas fa-calendar"></i> Appointment Date
+                                    </label>
+                                    <input type="date" name="date" class="form-control" id="appointment_date" 
+                                           min="{{ today|date:'Y-m-d' }}" 
+                                           max="{{ max_date|date:'Y-m-d' }}" required>
+                                    <small class="form-text text-muted">Select a date within the next 3 months</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="appointment_time" class="form-label">
+                                        <i class="fas fa-clock"></i> Preferred Time
+                                    </label>
+                                    <select name="time" class="form-control" id="appointment_time" required>
+                                        <option value="">Select time slot</option>
+                                        <option value="08:00 - 09:00">08:00 - 09:00 AM</option>
+                                        <option value="09:00 - 10:00">09:00 - 10:00 AM</option>
+                                        <option value="10:00 - 11:00">10:00 - 11:00 AM</option>
+                                        <option value="11:00 - 12:00">11:00 - 12:00 PM</option>
+                                        <option value="12:00 - 13:00">12:00 - 01:00 PM</option>
+                                        <option value="13:00 - 14:00">01:00 - 02:00 PM</option>
+                                        <option value="14:00 - 15:00">02:00 - 03:00 PM</option>
+                                        <option value="15:00 - 16:00">03:00 - 04:00 PM</option>
+                                        <option value="16:00 - 17:00">04:00 - 05:00 PM</option>
+                                        <option value="17:00 - 18:00">05:00 - 06:00 PM</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="notes" class="form-label">
+                                <i class="fas fa-sticky-note"></i> Additional Notes (Optional)
+                            </label>
+                            <textarea class="form-control" id="notes" rows="3" placeholder="Any special requirements or notes for the hospital..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-book" id="bookBtn">
+                            <i class="fas fa-calendar-check"></i> Book Appointment
+                        </button>
+                    </form>
+                    
+                    {% else %}
+                    <div class="empty-state">
+                        <i class="fas fa-calendar-times"></i>
+                        <h4>No Donation Requests Available</h4>
+                        <p>You need to have approved donation requests to book appointments.</p>
+                        <a href="{% url 'new-donation-request' %}" class="btn btn-book">
+                            <i class="fas fa-plus-circle"></i> Create Donation Request
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="footer-custom">
+        <div class="container">
+            <p class="mb-0">&copy; 2024 We Donate Inc. All rights reserved. | 
+            <a href="#">Privacy Policy</a> | 
+            <a href="#">Contact Us</a></p>
+        </div>
+    </footer>
+    
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function() {
+            // Set minimum date to today
+            const today = new Date().toISOString().split('T')[0];
+            $('#appointment_date').attr('min', today);
+            
+            // Set maximum date to 3 months from now
+            const maxDate = new Date();
+            maxDate.setMonth(maxDate.getMonth() + 3);
+            $('#appointment_date').attr('max', maxDate.toISOString().split('T')[0]);
+            
+            // Form validation and confirmation
+            $('form').on('submit', function(e) {
+                e.preventDefault(); // Always prevent default first
+                
+                const donationId = $('#donation_id').val();
+                const hospital = $('#hospital_select').val();
+                const date = $('#appointment_date').val();
+                const time = $('#appointment_time').val();
+                
+                if (!donationId || !hospital || !date || !time) {
+                    Swal.fire({
+                        title: 'Missing Information',
+                        text: 'Please fill in all required fields.',
+                        icon: 'warning',
+                        confirmButtonColor: '#667eea'
+                    });
+                    return false;
+                }
+                
+                // Get selected text for display
+                const donationText = $('#donation_id option:selected').text();
+                const hospitalText = $('#hospital_select option:selected').text();
+                
+                // Show confirmation dialog
+                Swal.fire({
+                    title: 'Confirm Appointment',
+                    html: `
+                        <div class="text-left">
+                            <p><strong>Donation:</strong> ${donationText}</p>
+                            <p><strong>Hospital:</strong> ${hospitalText}</p>
+                            <p><strong>Date:</strong> ${date}</p>
+                            <p><strong>Time:</strong> ${time}</p>
+                        </div>
+                    `,
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#667eea',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Book Appointment',
+                    cancelButtonText: 'Cancel'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('.btn-book').html('<i class="fas fa-spinner fa-spin"></i> Booking...');
+                        // Actually submit the form to Django
+                        e.target.submit();
+                    }
+                });
+            });
+            
+            // Update donation details when selection changes
+            $('#donation_id').on('change', function() {
+                const selectedText = $(this).find('option:selected').text();
+                if (selectedText !== 'Choose your donation request') {
+                    console.log('Selected donation:', selectedText);
+                }
+            });
+            
+            // Show hospital details when selected
+            $('#hospital_select').on('change', function() {
+                const selectedOption = $(this).find('option:selected');
+                const hospitalName = selectedOption.val();
+                const city = selectedOption.data('city');
+                const province = selectedOption.data('province');
+                
+                if (hospitalName) {
+                    $('#hospital-details').text(`${hospitalName} located in ${city}, ${province}`);
+                    $('#hospital-info').slideDown();
+                    console.log('Selected hospital:', hospitalName);
+                } else {
+                    $('#hospital-info').slideUp();
+                }
+            });
+        });
+    </script>
+
+    </body>
+</html>

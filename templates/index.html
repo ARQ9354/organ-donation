@@ -1,0 +1,381 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>We Donate - Save Lives Through Organ Donation</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('{% static "images/background.jpg" %}') center/cover;
+            opacity: 0.1;
+            z-index: 1;
+        }
+        
+        .navbar {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: #667eea !important;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .stats-section {
+            background: #f8f9fa;
+            padding: 4rem 0;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+        
+        .modules-section {
+            padding: 5rem 0;
+            background: white;
+        }
+        
+        .module-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: none;
+            height: 100%;
+        }
+        
+        .module-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+        
+        .module-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .module-icon .fallback-icon {
+            font-size: 4rem;
+            background: none;
+            -webkit-text-fill-color: initial;
+        }
+        
+        /* Show fallback if Font Awesome doesn't load */
+        .module-icon i:not([class*="fa-"]) + .fallback-icon,
+        .module-icon i.fa:before:empty + .fallback-icon {
+            display: inline-block !important;
+        }
+        
+        .module-icon i:not([class*="fa-"]) + .fallback-icon ~ i,
+        .module-icon i.fa:before:empty + .fallback-icon ~ i {
+            display: none;
+        }
+        
+        .module-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .module-description {
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .btn-custom {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+        
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 3rem 0 1rem;
+            text-align: center;
+        }
+        
+        .footer a {
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer a:hover {
+            color: #667eea;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .module-card {
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-heart text-danger"></i> We Donate
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Save Lives Through Organ Donation</h1>
+                <p class="hero-subtitle">
+                    The value of life is not in its duration, but in its donation. 
+                    Join our mission to connect donors with those in need and make a lasting impact.
+                </p>
+                <div class="mt-4">
+                    <a href="#modules" class="btn btn-custom btn-lg mr-3">
+                        <i class="fas fa-arrow-down"></i> Get Started
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="stat-card">
+                        <div class="stat-number">150K+</div>
+                        <h5>Lives Saved</h5>
+                        <p class="text-muted">Through successful organ donations</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-card">
+                        <div class="stat-number">500+</div>
+                        <h5>Partner Hospitals</h5>
+                        <p class="text-muted">Trusted medical institutions</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-card">
+                        <div class="stat-number">24/7</div>
+                        <h5>Support Available</h5>
+                        <p class="text-muted">Round-the-clock assistance</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modules Section -->
+    <section id="modules" class="modules-section">
+        <div class="container">
+            <h2 class="section-title">Choose Your Role</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-5 col-md-6 mb-4">
+                    <div class="module-card">
+                        <div class="module-icon">
+                            <i class="fas fa-hand-holding-heart"></i>
+                            <span class="fallback-icon" style="display: none;">❤️</span>
+                        </div>
+                        <h3 class="module-title">Donor Portal</h3>
+                        <p class="module-description">
+                            Register as a donor, submit donation requests, and book appointments. 
+                            Track your donation journey and make a difference in someone's life.
+                        </p>
+                        <div class="mb-3">
+                            <small class="text-muted">
+                                <i class="fas fa-check text-success"></i> Easy Registration<br>
+                                <i class="fas fa-check text-success"></i> Appointment Booking<br>
+                                <i class="fas fa-check text-success"></i> Status Tracking
+                            </small>
+                        </div>
+                        <a href="{% url 'donor-login' %}" class="btn btn-custom">
+                            <i class="fas fa-sign-in-alt"></i> Donor Login
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-6 mb-4">
+                    <div class="module-card">
+                        <div class="module-icon">
+                            <i class="fas fa-hospital"></i>
+                            <span class="fallback-icon" style="display: none;">🏥</span>
+                        </div>
+                        <h3 class="module-title">Hospital Portal</h3>
+                        <p class="module-description">
+                            Manage appointments, approve donations, and access our centralized 
+                            repository of verified donors. Streamline your organ donation process.
+                        </p>
+                        <div class="mb-3">
+                            <small class="text-muted">
+                                <i class="fas fa-check text-success"></i> Appointment Management<br>
+                                <i class="fas fa-check text-success"></i> Donor Database<br>
+                                <i class="fas fa-check text-success"></i> Approval System
+                            </small>
+                        </div>
+                        <a href="{% url 'hospital-login' %}" class="btn btn-custom">
+                            <i class="fas fa-sign-in-alt"></i> Hospital Login
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h5 class="mb-3">
+                        <i class="fas fa-heart text-danger"></i> We Donate
+                    </h5>
+                    <p class="mb-3">Connecting hearts, saving lives through organ donation.</p>
+                    <div class="mb-3">
+                        <a href="#" class="mr-3"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="mr-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="mr-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                    <hr class="my-3">
+                    <p class="mb-0">
+                        &copy; 2024 We Donate Inc. All rights reserved. | 
+                        <a href="#">Privacy Policy</a> | 
+                        <a href="#">Terms of Service</a> | 
+                        <a href="#">Contact Us</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth scrolling
+        $(document).ready(function(){
+            $('a[href^="#"]').on('click',function (e) {
+                e.preventDefault();
+                var target = this.hash;
+                var $target = $(target);
+                $('html, body').stop().animate({
+                    'scrollTop': $target.offset().top - 70
+                }, 900, 'swing');
+            });
+        });
+    </script>
+</body>
+</html>
