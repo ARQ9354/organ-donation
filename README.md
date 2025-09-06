@@ -1,17 +1,7 @@
 ## Installation ##
 ```pip install -r requirements.txt```<br/>
 ```python manage.py runserver```
-
-
-### Go to: ```http://localhost:8000/home/```
-
-## Hospital side login: ##
-Uname: rajesh<br/>
-Pass: rajesh14
-
-## Donor side login: ##
-Uname: hemanth<br/>
-Pass: rajesh15
+url :-  http://localhost:8000/home/
 
 ## To create new db and delete existing details: ##
 - Delete db.sqlite3 file
@@ -49,4 +39,5 @@ For viewing the database records, kindly follow the below steps:
 - Open a browser and visit http://localhost:8000/donors/login/ to login.
 - Create Donation Request and create a corresponding appointment for that donation request.
 - View Donation History on homepage
+
 
