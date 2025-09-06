@@ -32,12 +32,12 @@ For viewing the database records, kindly follow the below steps:
 - Run python manage.py createsuperuser
 - Enter neccessary details such as username, email, and password
 - Launch the server again using python manage.py runserver 
-- Visit http://127.0.0.1:8000/admin/ and login using the username and password that was created in step 3. 
 - The users table consists of user records, the appointments table consist of appointment information, and the donation requests table contains donation related information.
    
 ## Working instructions on donor side ##
 - Open a browser and visit http://localhost:8000/donors/login/ to login.
 - Create Donation Request and create a corresponding appointment for that donation request.
 - View Donation History on homepage
+
 
 
