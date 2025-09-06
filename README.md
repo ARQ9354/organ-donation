@@ -13,8 +13,6 @@ Pass: rajesh14
 Uname: hemanth<br/>
 Pass: rajesh15
 
-### Please note that if you use existing db, all the forgot password emails will be directed to "rajesh.gupta@dal.ca". Hence, create a new user in the existing DB to test such features. ###
-
 ## To create new db and delete existing details: ##
 - Delete db.sqlite3 file
 - Delete migrations/ folder inside donors/ and hospitals/ folder
@@ -51,3 +49,4 @@ For viewing the database records, kindly follow the below steps:
 - Open a browser and visit http://localhost:8000/donors/login/ to login.
 - Create Donation Request and create a corresponding appointment for that donation request.
 - View Donation History on homepage
+
