@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Book Appointment - We Donate</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -109,7 +112,7 @@
         .form-control {
             border: 2px solid #e1e5e9;
             border-radius: 12px;
-            padding: 15px 20px;
+            /* padding: 0px 0px; */
             font-size: 1rem;
             transition: all 0.3s ease;
             background: #f8f9fa;
@@ -124,21 +127,17 @@
         select.form-control {
             background: white !important;
             color: #333 !important;
-            -webkit-appearance: menulist !important;
-            -moz-appearance: menulist !important;
-            appearance: menulist !important;
+            font-size: 1rem !important;
+            line-height: 1.5 !important;
         }
         
         select.form-control option {
             background: white !important;
             color: #333 !important;
             padding: 8px !important;
+            font-size: 1rem !important;
         }
-        
-        select.form-control:focus {
-            background: white !important;
-            color: #333 !important;
-        }
+
         
         .btn-book {
             background: linear-gradient(135deg, #667eea, #764ba2);
@@ -315,6 +314,14 @@
                         <h6><i class="fas fa-info-circle"></i> Appointment Booking</h6>
                         <p class="mb-0">Select your approved donation request and choose a convenient time slot at your preferred hospital.</p>
                         <small class="text-muted">Debug: {{ donors|length }} donation requests, {{ users|length }} hospitals available</small>
+                        <div class="alert alert-warning">
+                            <strong>Debug Info:</strong><br>
+                            Hospitals: {{ users|length }}<br>
+                            {% for user in users|slice:":3" %}
+                            - {{ user.hospital_name }} ({{ user.city }})<br>
+                            {% endfor %}
+                            {% if users|length > 3 %}...and {{ users|length|add:"-3" }} more{% endif %}
+                        </div>
                     </div>
                     
                     <form method="POST" action="{% url 'book-appointment' %}">

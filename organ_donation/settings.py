@@ -27,6 +27,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Disable caching during development
+if DEBUG:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+        }
+    }
+
 
 WKHTMLTOPDF = os.path.join(BASE_DIR, "wkhtmltopdf", "wkhtmltopdf.exe")
 
@@ -80,7 +88,7 @@ WSGI_APPLICATION = 'organ_donation.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': r"C:\Users\tarun\AppData\Local\Programs\Python\Python311\e37f4343-35fc-48ca-838a-800cbc223528.sqlite3",
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
