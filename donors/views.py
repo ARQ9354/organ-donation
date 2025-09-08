@@ -60,6 +60,7 @@ def donor_login(request):
     return render(request, "donor-login.html")
 
 
+@login_required(login_url="donor-login")
 def donor_profile_update(request):
     success = 0
     msg = 0
@@ -148,6 +149,7 @@ def donor_landing_page(request):
     return render(request, "donor_landing_page.html")
 
 
+@login_required(login_url="donor-login")
 def donor_home(request):
     donor_requests = DonationRequests.objects.filter(donor=request.user)
     appointments = Appointments.objects.filter(donation_request__donor=request.user)
@@ -166,6 +168,7 @@ def donor_home(request):
     })
 
 
+@login_required(login_url="donor-login")
 def new_donation_request(request):
     
     if request.POST:
@@ -187,6 +190,7 @@ def new_donation_request(request):
     return render(request, "new-donation-request.html")
 
 
+@login_required(login_url="donor-login")
 def book_appointment(request):
     # If method is post
     if request.POST:
