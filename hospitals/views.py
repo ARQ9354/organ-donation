@@ -159,8 +159,15 @@ def hospital_register(request):
 
     # If method is post
     if request.POST:
+        username = request.POST.get("username", "")
+        
+        # Check if username already exists
+        if User.objects.filter(username=username).exists():
+            msg = "Username already exists. Please choose a different username."
+            return render(request, "hospital-registration.html", {"error": msg})
+        
         user = User()
-        user.username = request.POST.get("username", "")
+        user.username = username
         user.set_password(request.POST.get("password", ""))
         user.email = request.POST.get("email", "")
         user.first_name = request.POST.get("hospital_name", "")

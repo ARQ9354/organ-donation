@@ -206,8 +206,13 @@ def book_appointment(request):
         
         return redirect("donor-home")
 
-    donors = DonationRequests.objects.filter(donor=request.user.id)
+    donors = DonationRequests.objects.filter(donor=request.user, donation_status='Approved')
     users = User.objects.filter(is_staff=True)
+    print(f"DEBUG: Found {users.count()} hospitals")
+    print(f"DEBUG: Found {donors.count()} donation requests")
+    print(f"DEBUG: User ID: {request.user.id}, Username: {request.user.username}")
+    for d in donors:
+        print(f"DEBUG: Donation {d.id} - {d.organ_type} - Status: {d.donation_status}")
     return render(request, "book-appointment.html", {"users": users, "donors": donors})
 
 

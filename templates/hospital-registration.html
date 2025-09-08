@@ -219,6 +219,12 @@
                 <p class="registration-subtitle">Join our network of trusted medical institutions</p>
             </div>
             
+            {% if error %}
+            <div class="alert alert-danger" role="alert">
+                <i class="fas fa-exclamation-triangle"></i> {{ error }}
+            </div>
+            {% endif %}
+            
             <form method="POST" action="{% url 'hospital-register' %}">
                 {% csrf_token %}
                 
